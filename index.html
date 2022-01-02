@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>WhiteBoard Soccer</title>
+  <script src="whiteboard.js"></script>
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css">
+  <link rel="stylesheet" href="whiteboard.css">
+</head>
+<body>
+<zwibbler showToolbar="false" pageView="true" defaultPaperSize="letter landscape">
+  <div class="tools">
+    <div class="items-tools">
+      <button tool z-on:click="usePickTool()" title="Select" z-class="{selected:getCurrentTool()=='pick'}">
+        <i class="fas fa-mouse-pointer"></i>
+      </button>
+      <button tool z-on:click="useBrushTool()" title="Draw" z-class="{selected:getCurrentTool()=='brush'}">
+        <i class="fas fa-pencil-alt"></i>
+      </button>
+      <!-- <button tool z-click="useLineTool({ lineWidth: 2 }, {singleLine: true})" title="Lines" z-class="{selected:getCurrentTool()=='line'}">
+        <i class="fas fa-pencil-ruler"></i>
+      </button> -->
+      <div class="hover-tool" title="Lines">
+        <i class="fas fa-long-arrow-alt-right"></i>
+        <div class="items-colors">
+          <button class="item-two" tool z-click="useArrowTool({arrowStyle:'solid',strokeStyle:'#b90000'})" z-class="{selected:getCurrentTool()=='line'}"><div class="i-color color-rojo"></div></button>
+          <button class="item-two" tool z-click="useArrowTool({arrowStyle:'solid',strokeStyle:'#e7d803'})" z-class="{selected:getCurrentTool()=='line'}"><div class="i-color color-amarillo"></div></button>
+          <button class="item-two" tool z-click="useArrowTool({arrowStyle:'solid',strokeStyle:'#02d802'})" z-class="{selected:getCurrentTool()=='line'}"><div class="i-color color-verde"></div></button>
+        </div>
+      </div>
+      <button tool z-click="useRectangleTool({opacity:0.2,strokeStyle:'transparent',lineWidth:0,fillStyle:'black'})" title="Rectangle" z-class="{selected:getCurrentTool()=='rectangle'}">
+        <i class="far fa-square"></i>
+      </button>
+      <button tool z-click="useCircleTool({opacity:0.2,strokeStyle:'transparent',lineWidth:0,fillStyle:'black'})" title="Circle" z-class="{selected:getCurrentTool()=='circle'}">
+        <i class="far fa-circle"></i>
+      </button>
+      <button tool z-click="insertImage()" title="Insert image">
+        <i class="fas fa-image"></i>
+      </button>
+      <button tool z-click="cut()" title="Cut">
+        <i class="fas fa-trash"></i>
+      </button>
+      <button tool z-click="undo()" z-disabled="!canUndo()">
+        <i class="fas fa-undo"></i>
+      </button>
+      <button tool z-click="redo()" z-disabled="!canRedo()">
+        <i class="fas fa-redo"></i>
+      </button>
+      <button tool z-click="zoomIn()">
+        <i class="fas fa-search-plus"></i>
+      </button>
+      <button tool z-click="zoomOut()">
+        <i class="fas fa-search-minus"></i>
+      </button>
+    </div>
+    <!--
+    <button z-click="Download" z-show-popup="my-menu">Descargar</button>
+    -->
+    <div class="info-tools">
+      <div z-has="AnyNode">
+        <h6>Elemento seleccionado</h6>
+        <button class="option" z-click="deleteNodes()">Borrar</button>                    
+        <button class="option" z-click="bringToFront()">Enviar al frente</button>
+        <button class="option" z-click="sendToBack()">Enviar atrás</button>
+      </div>
+      <div z-has="fillStyle">
+        <h6>Color</h6>
+        <div class="colour-picker" z-has="fillStyle">
+          <div swatch z-property="fillStyle" z-colour></div>
+          Relleno
+        </div>
+        <div class="colour-picker" z-has="strokeStyle">
+          <div swatch z-property="strokeStyle" z-colour></div>
+          Contorno
+        </div>
+        <div class="colour-picker" z-has="background">
+          <div swatch z-property="background" z-colour></div>
+          Background
+        </div>
+      </div>
+      <div z-has="arrowSize">
+        <h6>Flecha</h6>
+        <button class="option" z-property="arrowSize" z-value="0">Ninguna</button>
+        <button class="option" z-property="arrowSize" z-value="10">Pequeño</button>
+        <button class="option" z-property="arrowSize" z-value="15">Grande</button>
+        <hr>
+        <button class="option" z-property="arrowStyle" z-value="solid">Solido</button>
+        <button class="option" z-property="arrowStyle" z-value="open">Abierto</button>
+      </div>
+      <div z-has="lineWidth">
+        <h6>Line width</h6> 
+        <select z-property="lineWidth">
+          <option value="0">Ninguna</option>
+          <option>1</option>
+          <option>2</option>
+          <option>4</option>
+          <option>8</option>
+        </select>
+      </div>
+      <div z-has="dashes">
+        <h6>Estilo de linea</h6>
+        <button class="option" z-property="dashes" z-value="">Solid</button>
+        <button class="option" z-property="dashes" z-value="3,3">Dots</button>
+        <button class="option" z-property="dashes" z-value="8,2">Dashes</button>
+      </div>
+      <div z-has="opacity">
+        <h6>Opacity</h6>
+        <input z-property="opacity" type="range" min="0.1" max="1.0" step="0.05">
+      </div>
+    </div>              
+  </div>
+
+  <div style="display:flex;flex-flow:column;flex: 1 1 auto;min-width:0">
+    <div z-canvas style="width:100%;height: 100%;display: flex;"></div>
+    <div class="pages">
+      <button title="Insert page" z-click="insertPage()"><i class="fas fa-plus"></i></button>
+      <button title="Delete page" z-click="deletePage()"><i class="fas fa-minus"></i></button>
+      <div z-for="mypage in getPageCount()">
+        <div z-page="mypage" z-height="70" class="page" z-class="{selected: mypage==getCurrentPage()}" z-click="setCurrentPage(mypage)"> </div>
+      </div>
+    </div>
+  </div>
+  <!-- <div z-popup="my-menu">
+    <button z-click="download('png', 'drawing.png')">PNG</button>
+    <button z-click="download('jpg', 'drawing.jpg')">JPG</button>
+    <button z-click="download('svg', 'drawing.svg')">SVG</button>
+    <button z-click="download('pdf', 'drawing.pdf')">PDF</button>
+  </div> -->
+</zwibbler>
+<script>
+  //Zwibbler.enableConsoleLogging();
+  const ctx = document.getElementsByTagName('zwibbler')[0];
+  function MyFunction(ctx) {
+    // ctx is actually a Zwibbler context, with functions
+    // like getPageCount() and save() and useBrushTool(). But
+    // you can extend it.
+
+    ctx.setConfig("backgroundImage", "background3.jpg")
+    ctx.setConfig('pageShadow', false);
+    ctx.setConfig('persistent', true);
+    ctx.setConfig('outsidePageColour',"#ccc");
+    //ctx.setConfig('defaultStrokeStyle', 'none')
+    //ctx.setPageBackground(0, "gray");
+
+    ctx.setPageSize(0, 11.5*96, 7.235*96);
+    ctx.setZoom('page')
+    ctx.setConfig('drawShapeStyle','radial')
+
+    
+  }
+  
+  window.addEventListener('load', (event) => {
+    
+    MyFunction(Zwibbler.instances[0])
+  });
+</script>
+</body>
+</html>
