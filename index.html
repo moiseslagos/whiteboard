@@ -14,46 +14,68 @@
   <div class="tools">
     <div class="items-tools">
       <button tool z-on:click="usePickTool()" title="Select" z-class="{selected:getCurrentTool()=='pick'}">
-        <i class="fas fa-mouse-pointer"></i>
+        <img src="assets/Puntero.png">
       </button>
       <button tool z-on:click="useBrushTool()" title="Draw" z-class="{selected:getCurrentTool()=='brush'}">
-        <i class="fas fa-pencil-alt"></i>
+        <img src="assets/Lapiz.png">
       </button>
       <!-- <button tool z-click="useLineTool({ lineWidth: 2 }, {singleLine: true})" title="Lines" z-class="{selected:getCurrentTool()=='line'}">
         <i class="fas fa-pencil-ruler"></i>
       </button> -->
       <div class="hover-tool" title="Lines">
-        <i class="fas fa-long-arrow-alt-right"></i>
-        <div class="items-colors">
-          <button class="item-two" tool z-click="useArrowTool({arrowStyle:'solid',strokeStyle:'#b90000'})" z-class="{selected:getCurrentTool()=='line'}"><div class="i-color color-rojo"></div></button>
-          <button class="item-two" tool z-click="useArrowTool({arrowStyle:'solid',strokeStyle:'#e7d803'})" z-class="{selected:getCurrentTool()=='line'}"><div class="i-color color-amarillo"></div></button>
-          <button class="item-two" tool z-click="useArrowTool({arrowStyle:'solid',strokeStyle:'#02d802'})" z-class="{selected:getCurrentTool()=='line'}"><div class="i-color color-verde"></div></button>
+        <button class="tool-doubleclick" data-toolid="1" title="lines" data-tool="useArrowTool" data-colorHex="#b90000" tool z-click="useArrowTool({arrowStyle:'solid',strokeStyle:'#b90000',dashes:'6,6'})">
+          <img src="assets/flecha_punteada_rojo.png">
+        </button>
+        <div id="tools-1" class="items-colors show-tools-1" >
+          <button class="item-two" data-color="rojo" data-tool="useArrowTool" data-colorHex="#b90000" tool z-click="useArrowTool({arrowStyle:'solid',strokeStyle:'#b90000',dashes:'6,6'})"><div class="i-color color-rojo"></div></button>
+          <button class="item-two" data-color="amarillo" data-tool="useArrowTool" data-colorHex="#e7d803" tool z-click="useArrowTool({arrowStyle:'solid',strokeStyle:'#e7d803',dashes:'6,6'})"><div class="i-color color-amarillo"></div></button>
+          <button class="item-two" data-color="verde" data-tool="useArrowTool" data-colorHex="#02d802" tool z-click="useArrowTool({arrowStyle:'solid',strokeStyle:'#02d802',dashes:'6,6'})"><div class="i-color color-verde"></div></button>
+        </div>
+      </div>
+      <div class="hover-tool" title="Lines">
+        <button class="tool-doubleclick" data-toolid="2" title="lines" data-tool="useLineTool" data-colorHex="#b90000" tool z-click="useLineTool({strokeStyle:'#b90000'})" >
+          <img src="assets/Linea_solida_rojo.png">
+        </button>
+        <div id="tools-2" class="items-colors show-tools-2">
+          <button class="item-two" tool data-color="rojo" data-tool="useLineTool" data-colorHex="#b90000" z-click="useLineTool({strokeStyle:'#b90000'})" ><div class="i-color color-rojo"></div></button>
+          <button class="item-two" tool data-color="amarillo" data-tool="useLineTool" data-colorHex="#e7d803" z-click="useLineTool({strokeStyle:'#e7d803'})" ><div class="i-color color-amarillo"></div></button>
+          <button class="item-two" tool data-color="verde" data-tool="useLineTool" data-colorHex="#02d802" z-click="useLineTool({strokeStyle:'#02d802'})" ><div class="i-color color-verde"></div></button>
+        </div>
+      </div>
+      <div class="hover-tool" title="Lines">
+        <button class="tool-doubleclick" data-toolid="3" title="lines" data-tool="useArrowToolSolid" data-colorHex="#b90000" tool z-click="useArrowTool({arrowStyle:'solid',strokeStyle:'#b90000'})">
+          <img src="assets/Flecha_solida_rojo.png">
+        </button>
+        <div id="tools-3" class="items-colors show-tools-3">
+          <button class="item-two" tool data-color="rojo" data-tool="useArrowToolSolid" data-colorHex="#b90000" z-click="useArrowTool({arrowStyle:'solid',strokeStyle:'#b90000'})"><div class="i-color color-rojo"></div></button>
+          <button class="item-two" tool data-color="amarillo" data-tool="useArrowToolSolid" data-colorHex="#e7d803" z-click="useArrowTool({arrowStyle:'solid',strokeStyle:'#e7d803'})"><div class="i-color color-amarillo"></div></button>
+          <button class="item-two" tool data-color="verde" data-tool="useArrowToolSolid" data-colorHex="#02d802" z-click="useArrowTool({arrowStyle:'solid',strokeStyle:'#02d802'})"><div class="i-color color-verde"></div></button>
         </div>
       </div>
       <button tool z-click="useRectangleTool({opacity:0.2,strokeStyle:'transparent',lineWidth:0,fillStyle:'black'})" title="Rectangle" z-class="{selected:getCurrentTool()=='rectangle'}">
-        <i class="far fa-square"></i>
+        <img src="assets/area_rectangulo.png">
       </button>
       <button tool z-click="useCircleTool({opacity:0.2,strokeStyle:'transparent',lineWidth:0,fillStyle:'black'})" title="Circle" z-class="{selected:getCurrentTool()=='circle'}">
-        <i class="far fa-circle"></i>
+        <img src="assets/Area_circulo.png">
       </button>
-      <button tool z-click="insertImage()" title="Insert image">
-        <i class="fas fa-image"></i>
+      <button tool z-click="insertImage({zIndex:9999,lockSize:'true'})" title="Insert image">
+        <img src="assets/Jugador.png">
       </button>
       <button tool z-click="cut()" title="Cut">
-        <i class="fas fa-trash"></i>
+        <img src="assets/Borrar.png">
       </button>
       <button tool z-click="undo()" z-disabled="!canUndo()">
-        <i class="fas fa-undo"></i>
+        <img src="assets/Undo.png">
       </button>
       <button tool z-click="redo()" z-disabled="!canRedo()">
-        <i class="fas fa-redo"></i>
+        <img src="assets/Redo.png">
       </button>
-      <button tool z-click="zoomIn()">
+      <!-- <button tool z-click="zoomIn()">
         <i class="fas fa-search-plus"></i>
       </button>
       <button tool z-click="zoomOut()">
         <i class="fas fa-search-minus"></i>
-      </button>
+      </button> -->
     </div>
     <!--
     <button z-click="Download" z-show-popup="my-menu">Descargar</button>
@@ -65,7 +87,7 @@
         <button class="option" z-click="bringToFront()">Enviar al frente</button>
         <button class="option" z-click="sendToBack()">Enviar atrás</button>
       </div>
-      <div z-has="fillStyle">
+      <!-- <div z-has="fillStyle">
         <h6>Color</h6>
         <div class="colour-picker" z-has="fillStyle">
           <div swatch z-property="fillStyle" z-colour></div>
@@ -108,19 +130,19 @@
       <div z-has="opacity">
         <h6>Opacity</h6>
         <input z-property="opacity" type="range" min="0.1" max="1.0" step="0.05">
-      </div>
+      </div> -->
     </div>              
   </div>
 
   <div style="display:flex;flex-flow:column;flex: 1 1 auto;min-width:0">
     <div z-canvas style="width:100%;height: 100%;display: flex;"></div>
-    <div class="pages">
+    <!-- <div class="pages">
       <button title="Insert page" z-click="insertPage()"><i class="fas fa-plus"></i></button>
       <button title="Delete page" z-click="deletePage()"><i class="fas fa-minus"></i></button>
       <div z-for="mypage in getPageCount()">
         <div z-page="mypage" z-height="70" class="page" z-class="{selected: mypage==getCurrentPage()}" z-click="setCurrentPage(mypage)"> </div>
       </div>
-    </div>
+    </div> -->
   </div>
   <!-- <div z-popup="my-menu">
     <button z-click="download('png', 'drawing.png')">PNG</button>
@@ -140,21 +162,86 @@
     ctx.setConfig("backgroundImage", "background3.jpg")
     ctx.setConfig('pageShadow', false);
     ctx.setConfig('persistent', true);
-    ctx.setConfig('outsidePageColour',"#ccc");
+    ctx.setConfig('showColourPanel', false);
+    ctx.setConfig('outsidePageColour',"#d08a4d");
+    ctx.setConfig('defaultLineWidth', 3);
+    ctx.setConfig('confine', 'view')
     //ctx.setConfig('defaultStrokeStyle', 'none')
     //ctx.setPageBackground(0, "gray");
 
     ctx.setPageSize(0, 11.5*96, 7.235*96);
+    //ctx.setDocumentSize(8.5 * 96, 11 * 96)
     ctx.setZoom('page')
-    ctx.setConfig('drawShapeStyle','radial')
+    ctx.setConfig('drawShapeStyle','radial');
+
+
+
+    let btnHover = document.getElementsByClassName('tool-doubleclick');
+    let btnChildrens = document.getElementsByClassName('item-two');
+    let showItems = document.getElementsByClassName('items-colors');
+    for (const btn of btnHover) {
+      btn.addEventListener('dblclick', function (e) {
+        e.stopPropagation();
+        const id = btn.getAttribute('data-toolid');
+        //btn.parentElement.children[1].classList.toggle('selected');
+        for(const item of showItems){
+          item.classList.remove('selected');
+        }
+        document.getElementById('tools-'+id).classList.toggle('selected');
+      });
+      btn.addEventListener('click', function(e){
+        const color = btn.getAttribute('data-color');
+        const tool = btn.getAttribute('data-tool');
+        const colorHex = btn.getAttribute('data-colorHex');
+
+        console.log("TOOLS", tool)
+        if(tool === "useArrowTool"){
+          ctx.useArrowTool({arrowStyle:'solid',strokeStyle:colorHex,dashes:'6,6'})
+        }
+        if(tool === "useLineTool"){
+          ctx.useLineTool({arrowStyle:'solid',strokeStyle:colorHex})
+        }
+        if(tool === "useArrowToolSolid"){
+          ctx.useArrowTool({arrowStyle:'solid',strokeStyle:colorHex})
+        }
+      })
+    }
+    for (const btnChild of btnChildrens) {
+      btnChild.addEventListener('click', function (e) {
+        btnChild.parentElement.classList.remove('selected');
+
+        const color = btnChild.getAttribute('data-color');
+        const tool = btnChild.getAttribute('data-tool');
+        const colorHex = btnChild.getAttribute('data-colorHex');
+        
+        const btnParent = btnChild.parentElement.parentElement.children[0];
+        const img = btnChild.parentElement.parentElement.children[0].children[0];
+        
+        btnParent.setAttribute('data-colorHex', colorHex);
+        btnParent.setAttribute('data-tool', tool);
+
+        if(tool === "useArrowTool"){
+          img.setAttribute('src',`assets/flecha_punteada_${color}.png`)
+        }
+        if(tool === "useLineTool"){
+          img.setAttribute('src',`assets/Linea_solida_${color}.png`)
+        }
+        if(tool === "useArrowToolSolid"){
+          img.setAttribute('src',`assets/Flecha_solida_${color}.png`)
+        }
+        
+      });
+    }
 
     
   }
   
   window.addEventListener('load', (event) => {
-    
     MyFunction(Zwibbler.instances[0])
   });
+
+  
+
 </script>
 </body>
 </html>
