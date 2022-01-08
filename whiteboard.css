@@ -21,12 +21,15 @@ zwibbler {
 }
 
 .tools {
-  background: #d08a4e;
-  min-width: 150px;
+  min-width: 120px;
   display:flex;
   flex-direction: column;
   /* overflow-y: auto; */
   padding: 10px;
+  position: absolute;
+  right: 0;
+  top: 0;
+  z-index: 100;
 }
 .items-tools{
   display: grid;
@@ -82,7 +85,7 @@ zwibbler {
   visibility: hidden;
   position: absolute;
   top:10px;
-  right: -80px;
+  left: -80px;
   width: 80px;
   background: #ffffff;
   border-radius: 10px;
@@ -104,9 +107,9 @@ zwibbler {
   position:absolute;
   
   border-top: 8px solid transparent;
-  border-right: 8px solid white;
-  border-left: 8px solid transparent;
-  left: -15px;
+  border-left: 8px solid white;
+  border-right: 8px solid transparent;
+  right: -15px;
   top: 7px;
 }
 
