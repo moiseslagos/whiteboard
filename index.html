@@ -23,13 +23,13 @@
         <i class="fas fa-pencil-ruler"></i>
       </button> -->
       <div class="hover-tool" title="Lines">
-        <button class="tool-doubleclick" data-toolid="1" title="lines" data-tool="useArrowTool" data-colorHex="#b90000" tool z-click="useArrowTool({arrowStyle:'solid',strokeStyle:'#b90000',dashes:'1,6', name:'useArrowTool'}, true)" z-class="{selected:getPropertySummary().properties.name == 'useArrowTool' }">
+        <button class="tool-doubleclick" data-toolid="1" title="lines" data-tool="useArrowTool" data-colorHex="#b90000" tool z-click="useArrowTool({arrowStyle:'simple',strokeStyle:'#b90000',dashes:'4,6', name:'useArrowTool'}, true)" z-class="{selected:getPropertySummary().properties.name == 'useArrowTool' }">
           <img src="assets/flecha_punteada_rojo.png">
         </button>
         <div id="tools-1" class="items-colors show-tools-1" >
-          <button class="item-two" data-color="rojo" data-tool="useArrowTool" data-colorHex="#b90000" tool z-click="useArrowTool({arrowStyle:'solid',strokeStyle:'#b90000',dashes:'6,6', name:'useArrowTool'}, true)"><div class="i-color color-rojo"></div></button>
-          <button class="item-two" data-color="amarillo" data-tool="useArrowTool" data-colorHex="#e7d803" tool z-click="useArrowTool({arrowStyle:'solid',strokeStyle:'#e7d803',dashes:'6,6', name:'useArrowTool'}, true)"><div class="i-color color-amarillo"></div></button>
-          <button class="item-two" data-color="verde" data-tool="useArrowTool" data-colorHex="#02d802" tool z-click="useArrowTool({arrowStyle:'solid',strokeStyle:'#02d802',dashes:'6,6', name:'useArrowTool'}, true)"><div class="i-color color-verde"></div></button>
+          <button class="item-two" data-color="rojo" data-tool="useArrowTool" data-colorHex="#b90000" tool z-click="useArrowTool({arrowStyle:'simple',strokeStyle:'#b90000',dashes:'6,6', name:'useArrowTool'}, true)"><div class="i-color color-rojo"></div></button>
+          <button class="item-two" data-color="amarillo" data-tool="useArrowTool" data-colorHex="#e7d803" tool z-click="useArrowTool({arrowStyle:'simple',strokeStyle:'#e7d803',dashes:'6,6', name:'useArrowTool'}, true)"><div class="i-color color-amarillo"></div></button>
+          <button class="item-two" data-color="verde" data-tool="useArrowTool" data-colorHex="#02d802" tool z-click="useArrowTool({arrowStyle:'simple',strokeStyle:'#02d802',dashes:'6,6', name:'useArrowTool'}, true)"><div class="i-color color-verde"></div></button>
         </div>
       </div>
       <div class="hover-tool" title="Lines">
@@ -161,7 +161,7 @@
         console.log(a);
 
         if(tool === "useArrowTool"){
-          ctx.useArrowTool({arrowStyle:'solid',strokeStyle:colorHex,dashes:'6,6', name:'useArrowTool'},true)
+          ctx.useArrowTool({arrowStyle:'simple',strokeStyle:colorHex,dashes:'8,8', name:'useArrowTool'},true)
         }
         if(tool === "useLineTool"){
           ctx.useLineTool({arrowStyle:'solid',strokeStyle:colorHex, name:'useLineTool'},{singleLine: true})
